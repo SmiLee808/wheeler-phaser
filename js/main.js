@@ -7,6 +7,7 @@ var spaceKey;
 var ground;
 var player;
 var obstacle;
+var music;
 
 //This sets the score to start at -1.
 var score = -1;
@@ -25,6 +26,7 @@ function preload(){
 	game.load.image('player', 'assets/mickeyplane.png');
 	game.load.image('ground', 'assets/wallHorizontal.png');
 	game.load.image('obstacle', 'assets/castle1.png');
+	game.load.audio('backgroundMusic', 'assets/wishupon.mp3')
 	//game.stage.backgroundColor = "#c741f4"; 
 };
 
@@ -33,7 +35,7 @@ function preload(){
 function create(){
 	game.physics.startSystem(Phaser.Physics.Arcade);
 
-	game.add.tileSprite(0,0, GAME_WIDTH, GAME_HEIGHT, 'background')
+	game.add.tileSprite(0,0, GAME_WIDTH, GAME_HEIGHT, 'background');
 
 
 	player = game.add.sprite(game.width/10, game.world.height*7/9, 'player');
@@ -45,6 +47,9 @@ function create(){
 	ground = platforms.create(0, GAME_HEIGHT, 'ground');
 	game.physics.arcade.enable(ground);
 	ground.body.immovable = true;
+
+	music = game.add.audio('backgroundMusic');
+	music.play();
 	
 	ground.anchor.setTo(0,1);
 	ground.scale.setTo(4,1);
@@ -69,6 +74,7 @@ function create(){
 function update(){
 	game.physics.arcade.collide(player, obstacle);
 	game.physics.arcade.collide(player, ground);
+
 
 	//titleText.text = ''
 
